@@ -1,15 +1,29 @@
 package studio8;
 
 public class SelectAllQuestion extends MultipleChoiceQuestion {
-
+	
 	public SelectAllQuestion(String prompt, String answer, String[] choices) {
-		//Hint: 1 point per choice
+		super (prompt, answer, choices.length, choices);
 		//FIXME
 	}
 	
 	public int checkAnswer(String givenAnswer) {
 		//FIXME Should return partial credit (if earned)!
-		return 0;
+		int totalPoints = this.choices.length;
+		char[] givenArray = givenAnswer.toCharArray();
+		char[] answerArray = super.getAnswer().toCharArray();
+		for (int i = 0; i<givenArray.length; i++) {
+				if (super.getAnswer().indexOf(givenArray[i]) == -1) {
+					totalPoints --;
+				}
+			}
+		
+		for (int i = 0; i<answerArray.length; i++) {
+			if (givenAnswer.indexOf(answerArray[i]) == -1) {
+				totalPoints --;
+			}
+		}
+		return totalPoints;
 	}
 	
 	public static void main(String[] args) {
